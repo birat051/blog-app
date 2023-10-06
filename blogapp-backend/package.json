@@ -1,0 +1,15 @@
+{
+  "name": "blogapp-backend",
+  "version": "1.0.0",
+  "description": "node backend for blog app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
