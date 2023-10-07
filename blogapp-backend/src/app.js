@@ -5,11 +5,9 @@ const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 5000;
+const routes=require('./routes')
 
-
-// Middleware
-app.use(cors()); // Use the CORS middleware
-app.use(bodyParser.json());
+app.use(cors());
 
 
 // Database connection
@@ -32,8 +30,8 @@ mongoose.connection.on('error', (error) => {
 mongoose.connection.once('open', () => {
   console.log('Connected to database');
 });
-
-
+app.use(bodyParser.json());
+app.use('/v1', routes);
 // Routes
 // const blogRoutes = require('./src/routes/blogRoutes');
 // app.use('/api/blogs', blogRoutes);
