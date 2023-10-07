@@ -2,18 +2,20 @@ const BlogDataModel=require('../models/Blog')
 
 exports.createBlog = async (req, res) => {
     try {
-      const { title,paragraphs,previewImage} = req.body;
+      const { title,paragraphs,imageUrl} = req.body;
       if(!title)
       return res.status(400).json({ message: 'Blog title is required' });
       if(!paragraphs)
       return res.status(400).json({ message: 'Blog content is required' });
       const userId = req.params.userid;  
+      if(!userId)
+      return res.status(400).json({ message: 'User id is required in request header' });
       // Create a new blog post
       const newBlog = await BlogDataModel.create({
         title,
         paragraphs,
         userId,
-        previewImage,
+        imageUrl,
       });
       res.status(201).json({ message: 'Blog post created successfully', blog: newBlog });
     } catch (error) {
@@ -26,7 +28,7 @@ exports.createBlog = async (req, res) => {
   // Update an existing blog post by ID
 exports.updateBlog = async (req, res) => {
     try {
-      const { title, paragraphs, previewImage } = req.body;
+      const { title, paragraphs, imageUrl } = req.body;
       if(!title)
       return res.status(400).json({ message: 'Blog title is required request body' });
       if(!paragraphs)
@@ -48,7 +50,7 @@ exports.updateBlog = async (req, res) => {
       // Update the blog post
       blog.title = title;
       blog.paragraphs = paragraphs;
-      blog.previewImage = previewImage;
+      blog.imageUrl = imageUrl;
   
       // Save the updated blog post
       await blog.save();
