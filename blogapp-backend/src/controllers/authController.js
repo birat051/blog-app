@@ -29,7 +29,7 @@ exports.signup = async (req, res) => {
     // Create a JWT token
     const token = jwt.sign({ userId: newUser._id }, secretKey);
 
-    res.status(201).json({ token,email });
+    res.status(201).json({ token,email,userId: newUser._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Unexpected error occured while creating new user' });
@@ -56,7 +56,7 @@ exports.signin = async (req, res) => {
     // Create a JWT token
     const token = jwt.sign({ userId: user._id }, secretKey);
 
-    res.status(202).json({ token , email});
+    res.status(202).json({ token , email, userId: user._id});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

@@ -8,8 +8,6 @@ exports.createBlog = async (req, res) => {
       if(!paragraphs)
       return res.status(400).json({ message: 'Blog content is required' });
       const userId = req.params.userid;  
-      if(!userId)
-      return res.status(400).json({ message: 'User id is required in request header' });
       // Create a new blog post
       const newBlog = await BlogDataModel.create({
         title,
@@ -36,17 +34,12 @@ exports.updateBlog = async (req, res) => {
       const blogId = req.params.blogid;
       if(!blogId)
       return res.status(400).json({ message: 'Blog id is required in request header' });
-      const userId=req.params.userid;
-      if(!userId)
-      return res.status(400).json({ message: 'User id is required in request header' });
       // Find the blog post by ID
       const blog = await BlogDataModel.findById(blogId);
   
       if (!blog) {
         return res.status(404).json({ message: 'Blog post not found' });
       }
-      if (blog.userId.toString()!==userId)
-      return res.status(403).json({ message: 'You are not the author of this blog' });
       // Update the blog post
       blog.title = title;
       blog.paragraphs = paragraphs;
@@ -68,18 +61,11 @@ exports.deleteBlog = async (req, res) => {
         const blogId = req.params.blogid;
         if(!blogId)
         return res.status(400).json({ message: 'Blog id is required in request header' });
-        const userId=req.params.userid;
-        if(!userId)
-        return res.status(400).json({ message: 'User id is required in request header' });
   
         const blog = await BlogDataModel.findById(blogId);
 
         if (!blog) {
           return res.status(404).json({ message: 'Blog post not found' });
-        }
-    
-        if (blog.userId.toString() !== userId) {
-          return res.status(403).json({ message: 'You are not the author of this blog post' });
         }
     
         await BlogDataModel.findByIdAndDelete(blogId);
