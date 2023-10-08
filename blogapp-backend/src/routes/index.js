@@ -34,4 +34,9 @@ router.get('/blog-details/user/:userid/blog/:blogid',verifyJWT, function (req, r
     BlogController.getBlogDetails(req, res); 
 });
 
+router.get('/validate-user/user/:userid',function (req, res) {
+    AuthController.validateJWT(req, res); 
+});
+
+
 module.exports = router;

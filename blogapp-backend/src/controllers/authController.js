@@ -62,3 +62,20 @@ exports.signin = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+exports.validateJWT=async (req, res) => {
+  try{
+  const secretKey=process.env.secretKey
+  const token = req.header('Authorization');
+  const decoded = jwt.verify(token, secretKey);
+  if(decoded.userId!=req.params.userid)
+  res.status(401).json({message: 'Login attempt failed'});
+  else
+  res.status(200).json({message: 'User has been validated'})
+  }
+  catch(error)
+  {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
