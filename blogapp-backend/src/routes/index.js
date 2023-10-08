@@ -26,4 +26,12 @@ router.delete('/delete-blog/user/:userid/blog/:blogid',verifyJWT, function (req,
     BlogController.deleteBlog(req, res); 
 });
 
+router.get('/all-blogs/user/:userid/',verifyJWT, function (req, res) {
+    BlogController.getAllUserBlogs(req, res); 
+});
+
+router.get('/blog-details/user/:userid/blog/:blogid',verifyJWT, function (req, res) {
+    BlogController.getBlogDetails(req, res); 
+});
+
 module.exports = router;

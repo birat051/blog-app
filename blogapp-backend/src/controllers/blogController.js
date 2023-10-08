@@ -74,5 +74,33 @@ exports.deleteBlog = async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Error deleting blog post' });
     }
-  };
+};
+
+exports.getAllUserBlogs = async (req,res) => 
+{
+  try {
+    const userId = req.params.userid;
+    const blogs = await BlogDataModel.find({ userId: userId }).select('-paragraphs');
+    res.status(200).json({ blogs });
+  }
+  catch(error)
+  {
+    console.error(error);
+    res.status(500).json({ message: 'Error getting blog posts' });
+  }
+}
   
+exports.getBlogDetails = async (req,res)=>{
+  try{
+    const blogId = req.params.blogid;
+    if(!blogId)
+    return res.status(400).json({ message: 'Blog id is required in request header' });
+    const blog = await BlogDataModel.findById(blogId);
+    res.status(200).json({ blog });
+  }
+  catch(error)
+  {
+    console.error(error);
+    res.status(500).json({ message: 'Error getting blog details' });
+  }
+}
