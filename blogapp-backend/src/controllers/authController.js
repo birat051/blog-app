@@ -1,7 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secretKey = process.env.secretKey;
-const UserDataModel=require('../models/User')
+const secretKey = process.env.JWT_SECRET;
+const UserDataModel=require('../models/User');
+const JwtTokenModel = require('../models/JWT');
 // Sign-up
 exports.signup = async (req, res) => {
   try {
@@ -27,8 +28,10 @@ exports.signup = async (req, res) => {
     const newUser= await UserDataModel.create({email,password: passwordHash})
 
     // Create a JWT token
-    const token = jwt.sign({ userId: newUser._id }, secretKey);
+    const token = jwt.sign({ userId: newUser._id }, secretKey,{expiresIn: 86400});
 
+    const newToken= await JwtTokenModel.create({token})
+    if(newToken && newUser)
     res.status(201).json({ token,email,userId: newUser._id });
   } catch (error) {
     console.error(error);
@@ -54,8 +57,10 @@ exports.signin = async (req, res) => {
     }
 
     // Create a JWT token
-    const token = jwt.sign({ userId: user._id }, secretKey);
+    const token = jwt.sign({ userId: user._id }, secretKey,{expiresIn: 86400});
+    const newToken= await JwtTokenModel.create({token})
 
+    if(newToken && user)
     res.status(202).json({ token , email, userId: user._id});
   } catch (error) {
     console.error(error);
@@ -65,9 +70,18 @@ exports.signin = async (req, res) => {
 
 exports.validateJWT=async (req, res) => {
   try{
-  const secretKey=process.env.secretKey
   const token = req.header('Authorization');
   const decoded = jwt.verify(token, secretKey);
+  const tokenDbData= await JwtTokenModel.findOne({token})
+  if(!tokenDbData)
+  res.status(401).json({message: 'Invalid jwt passed'})
+  if (tokenDbData.revoked) {
+    return res.status(401).json({ message: 'JWT token has been revoked' });
+  }
+  const currentTimestamp = Math.floor(Date.now() / 1000); // Get current timestamp in seconds
+  if (decoded.exp < currentTimestamp) {
+    return res.status(401).json({ message: 'JWT token has expired' });
+  }
   if(decoded.userId!=req.params.userid)
   res.status(401).json({message: 'Login attempt failed'});
   else
