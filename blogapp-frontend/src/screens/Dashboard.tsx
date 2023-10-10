@@ -1,9 +1,10 @@
+import ScreenWrapper from "../components/ScreenWrapper"
 
 function DashboardPage() {
   return (
-    <div>
+    <ScreenWrapper>
       
-    </div>
+    </ScreenWrapper>
   )
 }
 

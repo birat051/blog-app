@@ -15,18 +15,10 @@ function AppRoutes() {
   return (
     <Router>
     <Routes>
-    <Route element={<PrivateRoute />}>
-    <Route path="/" element={<DashboardPage />} />
-    </Route>
-    <Route element={<PrivateRoute />}>
-    <Route path="/create-blog" element={<CreateNewBlogPage />} />
-    </Route>
-    <Route element={<PrivateRoute />}>
-    <Route path="/update-blog/:blogid" element={<UpdateBlogPage />} />
-    </Route>
-    <Route element={<PrivateRoute />}>
-    <Route path="/user-blogs" element={<ViewUserBlogs />} />
-    </Route>
+    <Route path="/"  element={<PrivateRoute children={<DashboardPage />}/>} />
+    <Route path="/create-blog" element={<PrivateRoute  children={<CreateNewBlogPage />}/>} />
+    <Route path="/update-blog/:blogid" element={<PrivateRoute children={<UpdateBlogPage />}/>} />
+    <Route  path="/user-blogs" element={<PrivateRoute children={<ViewUserBlogs />}/>} />
     <Route
         path="/login"
         element={<LoginPage />}

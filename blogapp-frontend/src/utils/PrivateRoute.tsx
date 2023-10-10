@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import LoadingOverlayWrapper from "react-loading-overlay-ts";
 import styles from '../styles/privateroute.module.css'
-import { validateJWT } from "../services/userAuth";
+import { validateJWT } from "../services/UserAuth";
 
 type PrivateRoutePropType=
 {
