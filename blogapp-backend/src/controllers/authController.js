@@ -93,3 +93,17 @@ exports.validateJWT=async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 }
+
+exports.signout=async (req,res)=>{
+  try{
+  const token = req.header('Authorization');
+  const tokenDbData= await JwtTokenModel.findOne({token})
+  tokenDbData.revoked=true
+  await tokenDbData.save()
+  res.status(200).json({message: 'User has been successfully signed out'})
+  }
+  catch(error)
+  {
+    res.status(500).json({message: 'Couldnt sign out'})
+  }
+}

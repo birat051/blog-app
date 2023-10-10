@@ -12,6 +12,10 @@ router.post('/signup', function (req, res) {
 router.post('/signin', function (req, res) {
     AuthController.signin(req, res); 
 });
+
+router.post('/signout/user/:userid',verifyJWT,  function (req, res) {
+    AuthController.signout(req, res); 
+});
   
   // Use a callback function to handle the POST request for /create-blog/user/:userid
 router.post('/create-blog/user/:userid', verifyJWT, function (req, res) {
