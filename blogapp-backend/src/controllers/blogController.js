@@ -1,4 +1,6 @@
 const BlogDataModel=require('../models/Blog')
+const limit=5
+
 
 exports.createBlog = async (req, res) => {
     try {
@@ -80,7 +82,10 @@ exports.getAllUserBlogs = async (req,res) =>
 {
   try {
     const userId = req.params.userid;
-    const blogs = await BlogDataModel.find({ userId: userId }).select('-paragraphs');
+    const pageNumber=req.params.pagenumber;
+    const skip = (pageNumber - 1) * limit;
+    const blogs = await BlogDataModel.find({ userId: userId }).select('-paragraphs').skip(skip)
+    .limit(limit);
     res.status(200).json({ blogs });
   }
   catch(error)
@@ -102,5 +107,28 @@ exports.getBlogDetails = async (req,res)=>{
   {
     console.error(error);
     res.status(500).json({ message: 'Error getting blog details' });
+  }
+}
+
+exports.getBlogs= async(req,res)=>{
+  try{
+    const userId = req.params.userid;
+    const pageNumber=req.params.pagenumber;
+    const skip = (pageNumber - 1) * limit;
+    const blogs = await BlogDataModel.find({ userId: { $ne: userId } })
+      .populate({
+        path: 'userId',
+        select: 'name', // Select only the 'name' field from the 'userId' object
+        model: 'users',
+      })
+      .select('-paragraphs')
+      .skip(skip)
+      .limit(limit);
+    res.status(200).json({ blogs });
+  }
+  catch(error)
+  {
+    console.error(error);
+    res.status(500).json({ message: 'Error getting blog posts' });
   }
 }

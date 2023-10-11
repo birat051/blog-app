@@ -1,4 +1,4 @@
-const user=require('./User')
+const users=require('./User')
 
 const mongoose =require("mongoose");
 const { Schema } = mongoose;
@@ -14,7 +14,7 @@ const blogSchema = new Schema({
     }],
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'user', 
+      ref: 'users',
       required: true,
     },
     imageUrl: {
@@ -24,7 +24,7 @@ const blogSchema = new Schema({
   }, {
     timestamps: true, 
   },
-  );
+);
 
 const BlogDataModel =
 mongoose.models.blogs || mongoose.model("blogs", blogSchema);

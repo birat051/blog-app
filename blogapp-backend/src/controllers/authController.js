@@ -6,7 +6,7 @@ const JwtTokenModel = require('../models/JWT');
 // Sign-up
 exports.signup = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password,name } = req.body;
     if(!email)
     {
         return  res.status(400).json({ message: 'Email is required in request body' });
@@ -25,7 +25,7 @@ exports.signup = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // Create a new user
-    const newUser= await UserDataModel.create({email,password: passwordHash})
+    const newUser= await UserDataModel.create({email,password: passwordHash,name})
 
     // Create a JWT token
     const token = jwt.sign({ userId: newUser._id }, secretKey,{expiresIn: 86400});

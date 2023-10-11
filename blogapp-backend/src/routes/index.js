@@ -30,8 +30,12 @@ router.delete('/delete-blog/user/:userid/blog/:blogid',verifyJWT, function (req,
     BlogController.deleteBlog(req, res); 
 });
 
-router.get('/all-blogs/user/:userid/',verifyJWT, function (req, res) {
+router.get('/all-user-blogs/user/:userid/page/:pagenumber',verifyJWT, function (req, res) {
     BlogController.getAllUserBlogs(req, res); 
+});
+
+router.get('/all-blogs/user/:userid/page/:pagenumber',verifyJWT, function (req, res) {
+    BlogController.getBlogs(req, res); 
 });
 
 router.get('/blog-details/user/:userid/blog/:blogid',verifyJWT, function (req, res) {
