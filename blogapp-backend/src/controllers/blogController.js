@@ -83,7 +83,7 @@ exports.getAllUserBlogs = async (req,res) =>
   try {
     const userId = req.params.userid;
     const pageNumber=req.params.pagenumber || 1;
-    const limit=req.query.limit || 5;
+    const limit=parseInt(req.query.limit) || 5;
     const skip = (pageNumber - 1) * limit;
     const blogs = await BlogDataModel.find({ userId: userId }).select('-paragraphs').skip(skip)
     .limit(limit);
@@ -115,7 +115,7 @@ exports.getBlogs= async(req,res)=>{
   try{
     const userId = req.params.userid;
     const pageNumber=req.params.pagenumber || 1;
-    const limit=req.query.limit || 5;
+    const limit=parseInt(req.query.limit) || 5;
     const skip = (pageNumber - 1) * limit;
     const blogs = await BlogDataModel.find({ userId: { $ne: userId } })
       .populate({

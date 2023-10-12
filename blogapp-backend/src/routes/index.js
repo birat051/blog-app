@@ -1,9 +1,17 @@
 const express = require('express');
 const AuthController= require('../controllers/authController');
 const BlogController= require('../controllers/blogController');
+const StorageController=require('../controllers/storageController');
 const verifyJWT=require('../middleware/verifyJWT');
-
+const multer = require('multer');
 const router = express.Router();
+
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024,
+    },
+});
 
 router.post('/signup', function (req, res) {
     AuthController.signup(req, res); 
@@ -45,6 +53,10 @@ router.get('/blog-details/user/:userid/blog/:blogid',verifyJWT, function (req, r
 router.get('/validate-user/user/:userid',function (req, res) {
     AuthController.validateJWT(req, res); 
 });
+
+router.post('/upload-image/user/:userid',upload.single('image'),verifyJWT,function (req, res) {
+    StorageController.storeImage(req, res); 
+})
 
 
 module.exports = router;
