@@ -29,9 +29,13 @@ export class ApiHelper
     {
         return this.baseUrl + `/delete-blog/user/${userId}/blog/${blogId}`
     }
-    getAllBlogsRoute(userId:string)
+    getAllBlogsRoute(userId:string,page:number,limit:number)
     {
-        return this.baseUrl + `/all-blogs/user/${userId}`
+        return this.baseUrl + `/all-blogs/user/${userId}/page/${page}?limit=${limit}`
+    }
+    getAllUserBlogsRoute(userId:string,pageNumber:number,limit:number)
+    {
+        return this.baseUrl + `/all-user-blogs/user/${userId}/page/${pageNumber}?limit=${limit}`
     }
     getBlogDetailsRoute(userId:string,blogId:string)
     {

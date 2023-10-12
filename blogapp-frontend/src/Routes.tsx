@@ -10,6 +10,7 @@ import DashboardPage from './screens/Dashboard';
 import CreateNewBlogPage from './screens/CreateNewBlog';
 import UpdateBlogPage from './screens/UpdateBlogPage';
 import ViewUserBlogs from './screens/ViewUserBlogs';
+import AuthComponent from './components/AuthComponent';
 
 function AppRoutes() {
   return (
@@ -21,11 +22,11 @@ function AppRoutes() {
     <Route  path="/user-blogs" element={<PrivateRoute children={<ViewUserBlogs />}/>} />
     <Route
         path="/login"
-        element={<LoginPage />}
+        element={<AuthComponent><LoginPage/></AuthComponent>}
     />
      <Route
         path="/signup"
-        element={<SignupPage />}
+        element={<AuthComponent><SignupPage/></AuthComponent>}
     />
   </Routes>
   </Router>

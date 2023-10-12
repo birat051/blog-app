@@ -22,8 +22,8 @@ const PrivateRoute = (props:PrivateRoutePropType) => {
       }
       setisLoading(false)
     }
-    const userId=sessionStorage.getItem('userId')
-    const jwtToken=sessionStorage.getItem('jwtToken')
+    const userId=localStorage.getItem('userId')
+    const jwtToken=localStorage.getItem('jwtToken')
     if(userId && jwtToken)
     validateUser(userId,jwtToken)
     else
@@ -32,7 +32,7 @@ const PrivateRoute = (props:PrivateRoutePropType) => {
   
   if(isLoading)
   return (
-    <LoadingOverlayWrapper active={true}>
+    <LoadingOverlayWrapper active={true} spinner>
     <div className={styles.loadingcontainer}/> 
     </LoadingOverlayWrapper>
   )

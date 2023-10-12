@@ -16,8 +16,8 @@ function Navbar(props:NavbarPropType) {
   const location=useLocation()
   const navigate=useNavigate()
   const logOut=async()=>{
-    const userId=sessionStorage.getItem('userId')
-    const jwtToken=sessionStorage.getItem('jwtToken')
+    const userId=localStorage.getItem('userId')
+    const jwtToken=localStorage.getItem('jwtToken')
     if(!userId)
     alert('Couldnt fetch current user id')
     if(!jwtToken)
@@ -26,7 +26,10 @@ function Navbar(props:NavbarPropType) {
     if(!result)
     alert(error)
     else
+    {
+    localStorage.clear()
     navigate('/login', { replace: true })
+    }
   }
   return (
     <nav className={styles.navbar}>

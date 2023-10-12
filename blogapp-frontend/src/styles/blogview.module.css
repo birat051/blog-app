@@ -1,0 +1,47 @@
+.blogviewcontainer
+{
+    padding: 2rem;
+    margin-bottom: 1rem;
+    border: 0.1px solid grey;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.blogviewcontainer div
+{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    margin-left: 1rem;
+}
+
+.blogviewcontainer h1
+{
+    font-family: 'Inter',sans-serif;
+    font-size: 1.25rem;
+    color: black;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.blogviewcontainer p
+{
+    font-family: 'Noto Sans',sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: grey;
+    margin: 0rem;
+}
+
+.blogviewcontainer p span
+{
+    font-weight: 600;
+}
+.blogviewcontainer img
+{
+    object-fit: contain;
+    height: 100px;
+    width: 100px;
+}
