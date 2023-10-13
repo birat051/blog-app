@@ -7,4 +7,5 @@
     align-items: stretch;
     width: 100%;
     background-color: white;
+    position: relative;
 }

@@ -1,9 +1,20 @@
+import { Helmet, HelmetProvider } from "react-helmet-async"
+import ScreenWrapper from "../components/ScreenWrapper"
+import styles from '../styles/createblog.module.css'
+import TextEditor from "../components/TextEditor"
 
 function CreateNewBlogPage() {
   return (
-    <div>
-      
-    </div>
+    <HelmetProvider>
+    <ScreenWrapper>
+      <Helmet>
+        <title>Blip | New blog</title>
+      </Helmet>
+      <div className={styles.createblogwrapper}>
+      <TextEditor />
+      </div>
+    </ScreenWrapper>
+    </HelmetProvider>
   )
 }
 

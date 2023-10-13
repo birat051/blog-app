@@ -1,0 +1,57 @@
+.createblogwrapper
+{
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin: 0rem auto;
+    width: 70%;
+}
+
+.texteditorwrapper
+{
+    width: 100%;
+    background-color: white;
+}
+
+.titleinput
+{
+    font-family: 'Inter',sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 1rem;
+    border: none;
+    width: 100%;
+    background-color: white;
+    padding: 1rem;
+    outline: none;
+}
+
+.contentinput
+{
+    font-family: 'Noto Sans',sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 0.5rem;
+    border: none;
+    width: 100%;
+    background-color: white;
+    padding: 0rem 1rem;
+    outline: none;
+}
+
+.publishbutton
+{
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    background-color: #198816;
+    color: white;
+    font-family: 'Inter',sans-serif;
+    font-weight: 400;
+    border: none;
+    float: right;
+}

@@ -2,3 +2,19 @@
 {
     padding: 2rem;
 }
+
+.displayemptyblog
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.displayemptyblog p
+{
+    color: grey;
+    font-weight: 500;
+    font-family: 'Inter',sans-serif;
+    font-size: 1rem;
+}

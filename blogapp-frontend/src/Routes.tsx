@@ -11,6 +11,7 @@ import CreateNewBlogPage from './screens/CreateNewBlog';
 import UpdateBlogPage from './screens/UpdateBlogPage';
 import ViewUserBlogs from './screens/ViewUserBlogs';
 import AuthComponent from './components/AuthComponent';
+import BlogDetailPage from './screens/BlogDetailPage';
 
 function AppRoutes() {
   return (
@@ -20,6 +21,7 @@ function AppRoutes() {
     <Route path="/create-blog" element={<PrivateRoute  children={<CreateNewBlogPage />}/>} />
     <Route path="/update-blog/:blogid" element={<PrivateRoute children={<UpdateBlogPage />}/>} />
     <Route  path="/user-blogs" element={<PrivateRoute children={<ViewUserBlogs />}/>} />
+    <Route  path="/blog/:blogid" element={<PrivateRoute children={<BlogDetailPage />}/>} />
     <Route
         path="/login"
         element={<AuthComponent><LoginPage/></AuthComponent>}

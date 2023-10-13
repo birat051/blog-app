@@ -38,7 +38,7 @@ function Navbar(props:NavbarPropType) {
         {props.isAuthenticated && <li><Link to='/' className={location.pathname==='/'?styles.activelinktext:styles.linktext}>Home</Link></li>}
         {props.isAuthenticated && <li><Link to="/user-blogs" className={location.pathname==='/user-blogs'?styles.activelinktext:styles.linktext}>My Blogs</Link></li>}
         {props.isAuthenticated && <li><button onClick={logOut} className={styles.signout}>Signout</button></li>}
-        {props.isAuthenticated && <li><Link to="/create-blog"><FontAwesomeIcon icon={faSquarePlus} className={styles.addIcon} onClick={()=>navigate('/create-blog')}/></Link></li>}
+        {props.isAuthenticated && location.pathname!='/create-blog' && <li><Link to="/create-blog"><FontAwesomeIcon icon={faSquarePlus} className={styles.addIcon} onClick={()=>navigate('/create-blog')}/></Link></li>}
       </ul>
     </nav>
   )

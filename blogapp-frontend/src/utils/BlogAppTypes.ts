@@ -75,3 +75,11 @@ export type BlogViewType=
     blog: BlogHeaderType | Blog,
     self: boolean
 }
+
+export type ContentEditorPropType=
+{
+    paragraphs: string[],
+    handleParagraphChange: (index:number, value:string) => void,
+    handleKeyDown:  (e: React.KeyboardEvent, index: number) => void,
+    textareaRefs: React.MutableRefObject<Map<number, HTMLTextAreaElement | null>>
+}

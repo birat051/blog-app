@@ -48,7 +48,8 @@ function DisplayBlogs(props:DisplayBlogsProp) {
     }
   }, [])
   return (
-    <div className={styles.displayblogcontainer}>
+    <div className={bloglist.length>0?styles.displayblogcontainer:styles.displayemptyblog}>
+      {bloglist.length===0 && <p>There are no blogs to be displayed</p>}
       {bloglist.map((blog:BlogHeaderType | Blog,index)=>{
         return (
           <BlogView blog={blog} self={props.showUserBlogs} key={blog._id+blog.createdAt+index}/>
