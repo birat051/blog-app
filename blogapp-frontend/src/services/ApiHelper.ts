@@ -45,6 +45,10 @@ export class ApiHelper
     {
         return this.baseUrl + `/validate-user/user/${userId}`
     }
+    getUploadImageRoute(userId:string)
+    {
+        return this.baseUrl + `/upload-image/user/${userId}`
+    }
 }
 
 

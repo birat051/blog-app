@@ -55,3 +55,83 @@
     border: none;
     float: right;
 }
+
+.imageInputContainer {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 2px solid #ccc;
+    /* border-radius: 8px; */
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    /* width: fit-content; */
+    /* background-color: grey; */
+}
+  
+/* .imageInputContainer:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+} */
+
+.imageInputLabel {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: grey;
+    cursor: pointer;
+    width: 100%;
+}
+  
+.imageInputIcon {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.topBar {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+    margin-right: 1rem;
+}
+
+.previewImageContainer
+{
+    width: 100%;
+    padding: 0rem 4rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+
+
+.previewImage
+{
+    z-index: 2;
+    width: 100%;
+    background: rgba(49,49,49,0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.previewImageContainer:hover .previewImage {
+    opacity: 1;
+}
+
+.closeIcon
+{
+    display: none;
+}
+
+.previewImageContainer:hover .closeIcon
+{
+    display: block;
+}
+

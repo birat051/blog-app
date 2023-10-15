@@ -24,10 +24,8 @@ export interface SignOutResponse
     error?: string
 }
 
-export interface SignInResponse
+export interface SignInResponse extends SignOutResponse
 {
-    result: boolean,
-    error?: string,
     token?:string,
     userId?: string,
     message?: string
@@ -83,3 +81,11 @@ export type ContentEditorPropType=
     handleKeyDown:  (e: React.KeyboardEvent, index: number) => void,
     textareaRefs: React.MutableRefObject<Map<number, HTMLTextAreaElement | null>>
 }
+
+export interface UploadImageResponse
+{
+    result: boolean,
+    message?: string,
+    imageUrl?: string
+}
+
