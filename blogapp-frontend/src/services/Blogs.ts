@@ -1,4 +1,4 @@
-import { AllBlogsResponse, AllUserBlogsResponse, UploadImageResponse } from "../utils/BlogAppTypes"
+import { AllBlogsResponse, AllUserBlogsResponse, BlogRequestBody, CreateBlogResponse, UploadImageResponse } from "../utils/BlogAppTypes"
 import apiHelper from "./ApiHelper"
 
 export const getAllBlogs=async (userId:string,pageNumber:number,jwt:string,limit=5):Promise<AllBlogsResponse>=>{
@@ -102,6 +102,39 @@ export const uploadBlogImage=async (userId:string,jwt:string,image:File):Promise
         return {
             result: false,
             message: 'Unable to upload image. Unexpected error occured'
+        }
+    }
+}
+
+export const createBlogPost=async (userId:string,jwt:string,body:BlogRequestBody):Promise<CreateBlogResponse>=>{
+    try{
+        const url=apiHelper.getCreateBlogRoute(userId)
+        const res=await fetch(url,{
+            method: 'POST',
+            headers: {
+                'Authorization': jwt,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        const data=await res.json()
+        if(res.status===201)
+        return {
+            result:true,
+            blogId:data.blog._id
+        }
+        else
+        return {
+            result:false,
+            message: data.message
+        }
+    }
+    catch(error)
+    {
+        console.log(error)
+        return {
+            result:false,
+            message: 'Unable to create blog, unexpected error occured'
         }
     }
 }

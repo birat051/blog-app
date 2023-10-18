@@ -1,89 +1,62 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext,  useState } from 'react';
 import styles from '../styles/createblog.module.css'
 import ContentEditor from './ContentEditor';
 import { ScreenLoadingContext } from './ScreenWrapper';
 import { LoadingContextType } from '../utils/BlogAppTypes';
-import { uploadBlogImage } from '../services/Blogs';
+import { createBlogPost } from '../services/Blogs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faImage } from '@fortawesome/free-solid-svg-icons';
+import useLocalStorage from '../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
+import useContentParagraphs from '../hooks/useContentParagraphs';
+import useImage from '../hooks/useImage';
 
 function TextEditor() {
-  const [paragraphs, setParagraphs] = useState(['']);
-  const [image, setimage] = useState<File | null>()
-  const textareaRefs = useRef(new Map<number, HTMLTextAreaElement | null>());
+  const [paragraphs,handleParagraphChange,handleKeyDown,textareaRefs] = useContentParagraphs([''])
+  const [title, settitle] = useState('')
+  const navigate=useNavigate()
+  const [jwt,userId]=useLocalStorage()
+  const [image,blogImageUrl,changePreviewImage,removePreviewImage]=useImage('')
   const {handleLoading} =useContext(ScreenLoadingContext) as LoadingContextType
-  const [activeNode, setactiveNode] = useState(0)
-  const [blogImageUrl, setblogImageUrl] = useState('')
-  const addParagraphAfter = (index: number) => {
-    const newParagraphs = [...paragraphs];
-    newParagraphs.splice(index + 1, 0, '');
-    setactiveNode(index+1)
-    setParagraphs(newParagraphs);
-  };
-  const removeParagraph = (index:number) => {
-    if(paragraphs.length===1)
+  const changeTitle=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    e.preventDefault()
+    settitle(e.target.value)
+  }
+  const validateInput=()=>{
+    if(title.length===0)
+    {
+      alert('Title should not be empty')
+      return false
+    }
+    if(paragraphs.length===0 && paragraphs[0].length===0)
+    {
+      alert('Add some content')
+    return false
+    }
+    return true
+  }
+  const createBlog=async (e: React.FormEvent)=>{
+    e.preventDefault()
+    if(!validateInput)
     return
-    const newParagraphs = [...paragraphs];
-    newParagraphs.splice(index, 1);
-    setactiveNode(index-1)
-    setParagraphs(newParagraphs);
-  };
-  const handleParagraphChange = (index:number, value:string) => {
-    const newParagraphs = [...paragraphs];
-    newParagraphs[index] = value;
-    setParagraphs(newParagraphs);
-  };
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      addParagraphAfter(index);
-    } else if (e.key === 'Backspace' && paragraphs[index] === '') {
-      e.preventDefault();
-      removeParagraph(index);
+    const body= blogImageUrl.length>0 ? {
+      title: title,
+      paragraphs: paragraphs,
+      imageUrl: blogImageUrl
+    }:{
+      title: title,
+      paragraphs: paragraphs,
     }
-  };
-  const changePreviewImage=(event: React.ChangeEvent<HTMLInputElement>)=>{
-    event.preventDefault()
-    const file = event.target.files?.[0];
-    if (file) {
-        setimage(file);
-    }
+    handleLoading(true)
+    const {result,blogId,message}=  await createBlogPost(userId!,jwt!,body)
+    handleLoading(false)
+    if(result)
+    navigate(`/blog/${blogId}`,{replace:true})
+    else
+    alert(message)
   }
-  const removePreviewImage=()=>{
-    setblogImageUrl('')
-    setimage(null)
-  }
-  useEffect(() => {
-    async function uploadImage(userId:string,jwt:string)
-    {
-        handleLoading(true)
-        const {result,message,imageUrl} = await uploadBlogImage(userId,jwt,image!)
-        handleLoading(false)
-        if(!result)
-        alert(message)
-        else
-        setblogImageUrl(imageUrl!)
-    }
-    if(image)
-    {
-        const jwt=localStorage.getItem('jwtToken')
-        const userId=localStorage.getItem('userId')
-        uploadImage(userId!,jwt!)
-    }
-  }, [image])
-  
-  useEffect(() => {
-    // Focus the newly added textarea
-    const lastIndex = paragraphs.length - 1;
-    if (lastIndex >= 0) {
-      const textarea = textareaRefs.current.get(activeNode);
-      if (textarea) {
-        textarea.focus();
-      }
-    }
-  }, [paragraphs.length]);
   return (
-    <form className={styles.texteditorwrapper}>
+    <form className={styles.texteditorwrapper} onSubmit={createBlog}>
       <div className={styles.topBar}>
       <button className={styles.publishbutton} type="submit">Publish</button>
       </div>
@@ -108,7 +81,7 @@ function TextEditor() {
         <div className={styles.previewImage} />
         <FontAwesomeIcon icon={faClose} style={{position:'absolute',right:'20',top: '5',color: 'grey',cursor:'pointer',fontSize:'1.25rem',zIndex: '3'}} className={styles.closeIcon} onClick={removePreviewImage}/>
       </div>}
-      <input className={styles.titleinput} placeholder='Title' />
+      <input className={styles.titleinput} placeholder='Title' onChange={changeTitle} value={title}/>
       <ContentEditor paragraphs={paragraphs} handleParagraphChange={handleParagraphChange} handleKeyDown={handleKeyDown} textareaRefs={textareaRefs} />
     </form>
   )

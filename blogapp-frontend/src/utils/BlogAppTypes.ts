@@ -89,3 +89,17 @@ export interface UploadImageResponse
     imageUrl?: string
 }
 
+export interface BlogRequestBody
+{
+    title: string,
+    paragraphs: string[],
+    imageUrl?: string
+}
+
+export interface CreateBlogResponse
+{
+    blogId?: string,
+    result: boolean,
+    message?:string
+}
+

@@ -1,5 +1,4 @@
 const { Storage } = require('@google-cloud/storage');
-const Image=require('../models/ImageStorage')
 
 const path = require('path');
 
@@ -32,22 +31,10 @@ exports.storeImage= async (req,res)=>{
     });
     
     blobStream.on('finish', async () => {
-        try{
         const imageUrl = `https://storage.googleapis.com/${bucketName}/${file.name}`;
-        
-        const image = await Image.create({
-          filename: req.file.originalname,
-          imageUrl: imageUrl,
-        });
-        if(image)
         res.status(201).json({ imageUrl });
-        else
-        res.status(500).json({ message: 'An error occurred while saving the image information.' });
     }
-    catch(error)
-    {
-        res.status(500).json({ message: 'An error occurred while saving the image information.' });
-    }
-      });
+    );
+
     blobStream.end(req.file.buffer);
 }
