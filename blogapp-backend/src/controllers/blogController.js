@@ -102,7 +102,10 @@ exports.getBlogDetails = async (req,res)=>{
     if(!blogId)
     return res.status(400).json({ message: 'Blog id is required in request header' });
     const blog = await BlogDataModel.findById(blogId);
+    if(blog)
     res.status(200).json({ blog });
+    else
+    res.status(404).json({message: 'No blog found with given id'})
   }
   catch(error)
   {
