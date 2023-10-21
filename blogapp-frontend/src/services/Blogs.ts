@@ -1,4 +1,4 @@
-import { AllBlogsResponse, AllUserBlogsResponse, BlogRequestBody, CreateBlogResponse, UploadImageResponse } from "../utils/BlogAppTypes"
+import { AllBlogsResponse, AllUserBlogsResponse, BaseResponse, BlogDetailsResponse, BlogRequestBody, CreateBlogResponse, UploadImageResponse } from "../utils/BlogAppTypes"
 import apiHelper from "./ApiHelper"
 
 export const getAllBlogs=async (userId:string,pageNumber:number,jwt:string,limit=5):Promise<AllBlogsResponse>=>{
@@ -135,6 +135,101 @@ export const createBlogPost=async (userId:string,jwt:string,body:BlogRequestBody
         return {
             result:false,
             message: 'Unable to create blog, unexpected error occured'
+        }
+    }
+}
+
+export const getBlogDetails=async (userId:string,jwt:string,blogId:string):Promise<BlogDetailsResponse>=>{
+    try
+    {
+    const url=apiHelper.getBlogDetailsRoute(userId,blogId)
+    const res=await fetch(url,{
+        headers: {
+            'Authorization': jwt,
+            'Content-Type': 'application/json'
+        },
+    })
+    const data=await res.json()
+    if(res.status===200)
+        return {
+            result: true,
+            blog:data.blog
+        }
+    else
+    return {
+        result: false,
+        message:data.message
+    }
+    }
+    catch(e)
+    {
+        return {
+            result:false,
+            message: 'Unexpected error occured'
+        }
+    }
+}
+
+export const updateBlog=async (userId:string,jwt:string,blogId:string,body:BlogRequestBody):Promise<BaseResponse>=>{
+    try{
+        const url=apiHelper.getUpdateBlogRoute(userId,blogId)
+        const res=await fetch(url,{
+            method: 'PUT',
+            headers: {
+                'Authorization': jwt,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        })
+        const data=await res.json()
+        if(res.status===200)
+        return {
+            result: true,
+        }
+        else
+        return {
+            result: false,
+            message: data.message
+        }
+    }
+    catch(e)
+    {
+        console.log(e)
+        return {
+            result: false,
+            message: 'Couldn\'t save changes. Unexpected error occured'
+        }
+    }
+}
+
+export const deleteBlog=async (userId:string,jwt:string,blogId:string):Promise<BaseResponse>=>{
+    try{
+        const url=apiHelper.getDeleteBlogRoute(userId,blogId)
+        const res=await fetch(url,{
+            method: 'DELETE',
+            headers: {
+                'Authorization': jwt,
+                'Content-Type': 'application/json'
+            },
+        })
+        if(res.status===200)
+        return {
+            result:true
+        }
+        else
+        {
+            const data=await res.json()
+            return {
+                result:false,
+                message: data.message
+            }
+        }
+    }
+    catch(e)
+    {
+        return {
+            result:false,
+            message: 'Couldn\'t delete the blog. Unexpected error occured'
         }
     }
 }

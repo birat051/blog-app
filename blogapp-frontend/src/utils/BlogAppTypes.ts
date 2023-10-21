@@ -7,6 +7,12 @@ export type User=
     email?:string
 }
 
+export interface BaseResponse
+{
+    result:boolean,
+    message?:string,
+}
+
 export type LoadingContextType=
 {
     handleLoading: (value: boolean)=>void,
@@ -43,7 +49,7 @@ export interface BlogHeaderType
     createdAt: Date,
     updatedAt: Date,
     userId: User | string,
-    imageUrl: string,
+    imageUrl: string | null,
     _id: string
 }
 
@@ -54,11 +60,9 @@ export interface Blog extends BlogHeaderType
 }
 
 
-export interface AllBlogsResponse
+export interface AllBlogsResponse extends BaseResponse
 {
-    result: boolean,
     blogs?: Blog[],
-    message?: string
 }
 
 
@@ -82,10 +86,8 @@ export type ContentEditorPropType=
     textareaRefs: React.MutableRefObject<Map<number, HTMLTextAreaElement | null>>
 }
 
-export interface UploadImageResponse
+export interface UploadImageResponse extends BaseResponse
 {
-    result: boolean,
-    message?: string,
     imageUrl?: string
 }
 
@@ -96,10 +98,17 @@ export interface BlogRequestBody
     imageUrl?: string
 }
 
-export interface CreateBlogResponse
+export interface CreateBlogResponse extends BaseResponse
 {
     blogId?: string,
-    result: boolean,
-    message?:string
 }
 
+export interface BlogDetailsResponse extends BaseResponse
+{
+    blog?: Blog
+}
+
+export interface UserBlogsContextType
+{
+    removeBlog: (blogId:string)=>void
+}

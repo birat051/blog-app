@@ -11,7 +11,7 @@ function CreateNewBlogPage() {
         <title>Blip | New blog</title>
       </Helmet>
       <div className={styles.createblogwrapper}>
-      <TextEditor />
+      <TextEditor createType="create" title="" content={[""]} imageUrl=""/>
       </div>
     </ScreenWrapper>
     </HelmetProvider>
