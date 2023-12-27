@@ -6,9 +6,10 @@ const jwtTokenSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  revoked: {
-    type: Boolean,
-    default: false,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: 60 * 60 * 24,
   },
 });
 
