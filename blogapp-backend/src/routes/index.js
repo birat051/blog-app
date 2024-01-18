@@ -55,16 +55,14 @@ router.get(
 );
 
 router.get(
-  '/all-blogs/user/:userid/page/:pagenumber',
-  verifyJWT,
+  '/all-blogs/page/:pagenumber',
   function (req, res) {
     BlogController.getBlogs(req, res);
   },
 );
 
 router.get(
-  '/blog-details/user/:userid/blog/:blogid',
-  verifyJWT,
+  '/blog-details/blog/:blogid',
   function (req, res) {
     BlogController.getBlogDetails(req, res);
   },

@@ -100,7 +100,7 @@ exports.deleteBlog = async (req, res) => {
 
 exports.getAllUserBlogs = async (req, res) => {
   try {
-    const userId = req.params.userid;
+    const {userId=null} = req.query.userid;
     const pageNumber = req.params.pagenumber || 1;
     const limit = parseInt(req.query.limit) || 5;
     const skip = (pageNumber - 1) * limit;
