@@ -17,11 +17,11 @@ function AppRoutes() {
   return (
     <Router>
     <Routes>
-    <Route path="/"  element={<PrivateRoute children={<DashboardPage />}/>} />
+    <Route path="/"  element={<DashboardPage />} />
     <Route path="/create-blog" element={<PrivateRoute  children={<CreateNewBlogPage />}/>} />
     <Route path="/update-blog/:blogid" element={<PrivateRoute children={<UpdateBlogPage />}/>} />
     <Route  path="/user-blogs" element={<PrivateRoute children={<ViewUserBlogs />}/>} />
-    <Route  path="/blog/:blogid" element={<PrivateRoute children={<BlogDetailPage />}/>} />
+    <Route  path="/blog/:blogid" element={<BlogDetailPage />} />
     <Route
         path="/login"
         element={<AuthComponent><LoginPage/></AuthComponent>}

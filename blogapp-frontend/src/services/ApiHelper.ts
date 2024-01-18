@@ -31,15 +31,15 @@ export class ApiHelper
     }
     getAllBlogsRoute(userId:string,page:number,limit:number)
     {
-        return this.baseUrl + `/all-blogs/user/${userId}/page/${page}?limit=${limit}`
+        return this.baseUrl + `/all-blogs/page/${page}?limit=${limit}&userid=${userId}`
     }
     getAllUserBlogsRoute(userId:string,pageNumber:number,limit:number)
     {
         return this.baseUrl + `/all-user-blogs/user/${userId}/page/${pageNumber}?limit=${limit}`
     }
-    getBlogDetailsRoute(userId:string,blogId:string)
+    getBlogDetailsRoute(blogId:string)
     {
-        return this.baseUrl + `/blog-details/user/${userId}/blog/${blogId}`
+        return this.baseUrl + `/blog-details/${blogId}`
     }
     getValidateUserRoute(userId:string)
     {

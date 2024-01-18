@@ -1,0 +1,52 @@
+.blogpage
+{
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 3rem;
+    background-color: black;
+}
+
+.blogpage h1
+{
+    font-family: 'Inter',sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 1.5rem;
+}
+
+.blogpage p
+{
+    font-family: 'Noto Sans',sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 0.5rem;
+}
+
+.blogpage h2
+{
+    font-family: 'Inter',sans-serif;
+    font-size: 0.5rem;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 1.5rem;
+}
+
+.blogpage h2 span
+{
+    font-family: 'Inter',sans-serif;
+    font-size: 0.5rem;
+    font-weight: 500;
+    color: grey;
+}
+
+.blogpage img
+{
+    width: 100%;
+    margin-bottom: 1.5rem;
+}

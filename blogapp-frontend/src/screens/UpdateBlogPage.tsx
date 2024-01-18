@@ -3,7 +3,6 @@ import ScreenWrapper from "../components/ScreenWrapper"
 import styles from '../styles/createblog.module.css'
 import TextEditor from "../components/TextEditor"
 import { useEffect, useState } from "react"
-import useLocalStorage from "../hooks/useLocalStorage"
 import { getBlogDetails } from "../services/Blogs"
 import { useParams } from "react-router-dom"
 import { Blog } from "../utils/BlogAppTypes"
@@ -11,7 +10,6 @@ import LoadingOverlayWrapper from "react-loading-overlay-ts"
 import errorStyle from "../styles/screenwrapper.module.css"
 
 function UpdateBlogPage() {
-  const [jwt,userId]=useLocalStorage()
   const { blogid } = useParams();
   const [isLoading, setisLoading] = useState(true)
   const [error, seterror] = useState('')
@@ -19,7 +17,7 @@ function UpdateBlogPage() {
   useEffect(() => {
     async function getBlog(){
       try{
-      const {result,message,blog}=await getBlogDetails(userId!,jwt!,blogid!)
+      const {result,message,blog}=await getBlogDetails(blogid!)
       if(!result)
       seterror(message!)
       else
@@ -38,6 +36,8 @@ function UpdateBlogPage() {
   return (
     <LoadingOverlayWrapper active={true} spinner>
     <ScreenWrapper >
+      < >
+      </>
     </ScreenWrapper> 
     </LoadingOverlayWrapper>
   )

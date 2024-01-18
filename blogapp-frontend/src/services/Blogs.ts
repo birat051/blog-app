@@ -139,13 +139,12 @@ export const createBlogPost=async (userId:string,jwt:string,body:BlogRequestBody
     }
 }
 
-export const getBlogDetails=async (userId:string,jwt:string,blogId:string):Promise<BlogDetailsResponse>=>{
+export const getBlogDetails=async (blogId:string):Promise<BlogDetailsResponse>=>{
     try
     {
-    const url=apiHelper.getBlogDetailsRoute(userId,blogId)
+    const url=apiHelper.getBlogDetailsRoute(blogId)
     const res=await fetch(url,{
         headers: {
-            'Authorization': jwt,
             'Content-Type': 'application/json'
         },
     })

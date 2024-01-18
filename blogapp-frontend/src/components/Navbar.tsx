@@ -35,7 +35,8 @@ function Navbar(props:NavbarPropType) {
     <nav className={styles.navbar}>
       <img src={blipLogo} className={styles.navbarlogo} />
       <ul className={styles.desktoplist}>
-        {props.isAuthenticated && <li><Link to='/' className={location.pathname==='/'?styles.activelinktext:styles.linktext}>Home</Link></li>}
+        <li><Link to='/' className={location.pathname==='/'?styles.activelinktext:styles.linktext}>Home</Link></li>
+        {!props.isAuthenticated && <li><Link to='/login' className={location.pathname==='/login'?styles.activelinktext:styles.linktext}>Login</Link></li>}
         {props.isAuthenticated && <li><Link to="/user-blogs" className={location.pathname==='/user-blogs'?styles.activelinktext:styles.linktext}>My Blogs</Link></li>}
         {props.isAuthenticated && <li><button onClick={logOut} className={styles.signout}>Signout</button></li>}
         {props.isAuthenticated && location.pathname!='/create-blog' && <li><Link to="/create-blog"><FontAwesomeIcon icon={faSquarePlus} className={styles.addIcon} onClick={()=>navigate('/create-blog')}/></Link></li>}
