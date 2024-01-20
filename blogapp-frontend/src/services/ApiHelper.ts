@@ -52,6 +52,6 @@ export class ApiHelper
 }
 
 
-const apiHelper = new ApiHelper(import.meta.env.VITE_APP_HOOT_NAME || 'http://localhost:5001/v1')
+const apiHelper = new ApiHelper(import.meta.env.VITE_API_URL || 'http://localhost:5001/v1')
 
 export default apiHelper

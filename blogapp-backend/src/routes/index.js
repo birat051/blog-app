@@ -62,7 +62,7 @@ router.get(
 );
 
 router.get(
-  '/blog-details/blog/:blogid',
+  '/blog-details/:blogid',
   function (req, res) {
     BlogController.getBlogDetails(req, res);
   },
